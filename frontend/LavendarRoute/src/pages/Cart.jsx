@@ -28,7 +28,7 @@ const Cart = () => {
 
   const handleShow = () => setShow(true);
 
-  let cartArray = JSON.parse(localStorage.getItem("cart") || "[]");
+  let cartArray = (JSON.parse(localStorage.getItem("cart") || "[]") || []).filter(Boolean); //drop empty entries.
   let token = localStorage.getItem("token");
   let user = token ? JSON.parse(atob(token.split(".")[1])) : { firstName: "Guest" };
 

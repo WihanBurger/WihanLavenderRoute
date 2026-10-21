@@ -52,6 +52,7 @@ const [showModal, setShowModal] = useState(false);
   });
 
   const AddToCart = (_pokemon) => {
+    if (!_pokemon) return; //don't store an empty entry if the Pokemon failed to load.
     let cartArray = JSON.parse(localStorage.getItem("cart") || "[]");
     cartArray.push(_pokemon);
     localStorage.setItem("cart", JSON.stringify(cartArray));
@@ -67,7 +68,7 @@ const [showModal, setShowModal] = useState(false);
 
     if (!added) {
       let cartArray = JSON.parse(localStorage.getItem("cart") || "[]");
-      let pokemonMatch = cartArray.some((pokemon) => pokemon._id == _pokemonId);
+      let pokemonMatch = cartArray.some((pokemon) => pokemon?._id == _pokemonId);
       if (pokemonMatch) setAdded(true);
     }
   };
@@ -83,7 +84,7 @@ const [showModal, setShowModal] = useState(false);
         localStorage.setItem("wishlist", wishRaw);
       }
       let wishArray = JSON.parse(wishRaw); 
-      let pokemonMatch = wishArray.some((p) => p._id === _pokemonId);
+      let pokemonMatch = wishArray.some((p) => p?._id === _pokemonId);
       if (pokemonMatch) setAddedWish(true);
     }
   };
@@ -168,7 +169,7 @@ const [showModal, setShowModal] = useState(false);
       console.log(localStorage.getItem("wishlist"));
       toAdd = true;
     } else {
-      wishArray = wishArray.filter((pokemons) => pokemons._id !== pokemon._id);
+      wishArray = wishArray.filter((pokemons) => pokemons && pokemons._id !== pokemon._id);
       localStorage.setItem("wishlist", JSON.stringify(wishArray));
       console.log(localStorage.getItem("wishlist"));
       toAdd = false;

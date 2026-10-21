@@ -17,7 +17,7 @@ import Button from "react-bootstrap/Button";
 const Wishlist = () => {
   const navigate = useNavigate();
 
-  let wishArray = JSON.parse(localStorage.getItem("wishlist") || "[]");
+  let wishArray = (JSON.parse(localStorage.getItem("wishlist") || "[]") || []).filter(Boolean); //drop empty entries.
   let token = localStorage.getItem("token");
   let user = token ? JSON.parse(atob(token.split(".")[1])) : { firstName: "Guest" }
 
