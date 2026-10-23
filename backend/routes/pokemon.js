@@ -8,7 +8,8 @@ router.post("/", verifyToken, async (req, res) => {
 
     const pokemonData = {
       ...req.body,
-      sellerId: req.user.id
+      sellerId: req.user.id,
+      status: 'approved'
       };
 
    const newPokemon = new Pokemon(pokemonData);
